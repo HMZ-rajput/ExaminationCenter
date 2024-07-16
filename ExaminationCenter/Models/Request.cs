@@ -18,7 +18,7 @@ namespace ExaminationCenter.Models
 
         public DateTime DateApplied { get; set; }
 
-        public byte[] UserImage { get; set; }
+        public string UserImage { get; set; }
 
         [ForeignKey("UserId")]
         public User User { get; set; }

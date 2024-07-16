@@ -22,38 +22,55 @@
                                 <h5 class="modal-title">Add a new request</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
+
+
+                                <form method="post" action="@Url.Action("addRequest","Home")">
                             <div class="modal-body">
-
-
-                                <form>
+                                    <!-- User Name. faltu -->
                                     <div class="form-group">
                                         <label for="userName" class="form-label">Name</label>
-                                        <input type="text" id="userName" class="form-control" aria-describedby="emailHelp" placeholder="Enter user name">
+                                        <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter user name">
                                     </div>
+                                    <!-- Identity, dk what it is -->
                                     <div class="form-group">
                                         <label for="userName" class="form-label">Identity</label>
-                                        <input type="text" id="userName" class="form-control" aria-describedby="emailHelp" placeholder="Enter identity">
+                                        <input type="text" name="Identity" class="form-control" aria-describedby="emailHelp" placeholder="Enter identity">
                                     </div>
+                                    <!-- Job Name -->
                                     <div class="form-group">
                                         <label for="userName" class="form-label">Job Name</label>
-                                        <input type="text" id="userName" class="form-control" aria-describedby="emailHelp" placeholder="Enter job name">
+                                        <input type="text" name="Position" class="form-control" aria-describedby="emailHelp" placeholder="Enter job name">
                                     </div>
+                                    <!-- DOB, faltu-->
                                     <div data-mdb-input-init class="form-outline mb-4">
                                         <label class="form-label" for="form1Example13">Date of Birth</label>
-                                        <input type="date" id="form1Example13" class="form-control form-control-lg" />
+                                        <input type="date" class="form-control form-control-lg" />
                                     </div>
+                                    <!-- Profile Picuture -->
                                     <div data-mdb-input-init class="form-outline mb-4">
                                         <label class="form-label" for="form1Example13">Profile Picture</label>
-                                        <input type="file" name="ImageData" id="ImageData" onchange="fileCheck(this);" />
+                                        <input type="file" name="UserImage" id="ImageData" onchange="fileCheck(this);" />
                                     </div>
+
+                                    <!-- Username taken from user model, this seems unnecessary -->
+                                    <input type="hidden" name="User" value="Hamza" />
+                                    <!-- DOB taken from user model, this seems unnecessary-->
+                                    <input type="hidden" name="DateOfBirth" value="20001115" />
+                                    <!-- User Id -->
+                                    <input type="hidden" name="UserId" value="3" />
+                                    <!-- Status as pending by default -->
+                                    <input type="hidden" name="Status" value="Pending" />
+                                    <!-- Date Applied -->
+                                    <input type="hidden" name="Role" value="@DateTime.Now" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
                                 </form>
 
 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Add</button>
-                            </div>
+      
                         </div>
                     </div>
                 </div>

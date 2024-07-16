@@ -12,6 +12,8 @@ namespace ExaminationCenter
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddDbContext<MyContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DB")));
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -22,7 +24,6 @@ namespace ExaminationCenter
                 app.UseHsts();
             }
 
-            builder.Services.AddDbContext<MyContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DB")));
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
