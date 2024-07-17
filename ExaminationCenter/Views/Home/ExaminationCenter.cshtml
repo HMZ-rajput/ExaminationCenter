@@ -1,0 +1,101 @@
+﻿@{
+    ViewData["Title"] = "Examination Page";
+    Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
+}
+@using ExaminationCenter.Models;
+@model List<Request>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center">
+                <h1 class="display-4">Examination Center</h1>
+                <h3 class="display-5">Hello Mark!</h3>
+
+                <form form method="get" asp-controller="Home" asp-action="ExaminationCenter">
+                    <div class="input-group mb-3">
+                        <input type="text" id="searchTB" name="searchText" class="form-control" placeholder="Search Name" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button id="searchBtn" class="btn btn-outline-secondary" type="submit"><i class="bi bi-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+
+                <table class="table">
+                    <thead class="thead-dark" style="background-color: #1D8EA1; color: white;">
+                        <tr>
+                            <th scope="col">Sr#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Date Applied</th>
+                            <th scope="col">Position</th>
+                            <th scope="col">Present/Action</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 1;
+                        }
+                        @if(ViewBag.Message == null)
+                        {
+                            @foreach (var req in Model)
+                            {
+                                <tr>
+                                    <th scope="row">@sno</th>
+                                    <td>@req.Name</td>
+                                    <td>@req.DateApplied</td>
+                                    <td>@req.Position</td>
+                                    @{
+                                        string color = "#FFFF";
+                                        if (req.Status == "Present")
+                                        {
+                                            color = "#ABFF32";
+                                        }
+                                        else if (req.Status == "Absent")
+                                        {
+                                            color = "#F44336";
+                                        }
+                                    }
+
+                                    <td style="background-color: @color;">@req.Status</td>
+                                    <td>
+                                        <button class="btn btn-warning me-3" style="padding: 5px 20px; font-size: 18px;">Update</button>
+                                        <button class="btn btn-danger" style="padding: 5px 20px; font-size: 18px;">Delete</button>
+
+                                    </td>
+                                </tr>
+                                sno++;
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="6" class="text-center text-danger" style="background-color: #f8d7da; padding: 20px; font-size: 18px;">
+                                    @ViewBag.Message
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Get the input field
+    var input = document.getElementById("searchTB");
+
+    // Execute a function when the user presses a key on the keyboard
+    input.addEventListener("keypress", function (event) {
+        // If the user presses the "Enter" key on the keyboard
+        if (event.key === "Enter") {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("searchBtn").click();
+        }
+    });
+</script>

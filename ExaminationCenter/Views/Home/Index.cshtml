@@ -2,6 +2,8 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
 }
+@using ExaminationCenter.Models;
+@model List<Request>
 
 <div class="container-fluid">
     <div class="row">
@@ -24,45 +26,40 @@
                             </div>
 
 
-                                <form method="post" action="@Url.Action("addRequest","Home")">
-                            <div class="modal-body">
-                                    <!-- User Name. faltu -->
+                            <form method="post" action="@Url.Action("addRequest","Home")" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <!-- User Name -->
                                     <div class="form-group">
                                         <label for="userName" class="form-label">Name</label>
-                                        <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter user name">
+                                        <input type="text" name="Name" class="form-control" placeholder="Enter user name" required>
                                     </div>
-                                    <!-- Identity, dk what it is -->
+                                    <!-- Identity, or Country -->
                                     <div class="form-group">
-                                        <label for="userName" class="form-label">Identity</label>
-                                        <input type="text" name="Identity" class="form-control" aria-describedby="emailHelp" placeholder="Enter identity">
+                                        <label for="userIdentity" class="form-label">Identity</label>
+                                        <select class="selectpicker countrypicker form-control" data-default="PK"></select>
                                     </div>
                                     <!-- Job Name -->
                                     <div class="form-group">
-                                        <label for="userName" class="form-label">Job Name</label>
-                                        <input type="text" name="Position" class="form-control" aria-describedby="emailHelp" placeholder="Enter job name">
+                                        <label for="userJobName" class="form-label">Job Name</label>
+                                        <input type="text" name="Position" class="form-control" placeholder="Enter job name" required>
                                     </div>
-                                    <!-- DOB, faltu-->
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" for="form1Example13">Date of Birth</label>
-                                        <input type="date" class="form-control form-control-lg" />
+                                    <!-- DOB -->
+                                    <div class="form-group">
+                                        <label class="form-label" for="DateOfBirth">Date of Birth</label>
+                                        <input type="date" name="DateOfBirth" class="form-control" required />
                                     </div>
-                                    <!-- Profile Picuture -->
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" for="form1Example13">Profile Picture</label>
-                                        <input type="file" name="UserImage" id="ImageData" onchange="fileCheck(this);" />
+                                    <!-- Profile Picture -->
+                                    <div class="form-group">
+                                        <label class="form-label" for="ImageData">Profile Picture</label>
+                                        <input type="file" name="UserImage" id="ImageData" class="form-control" onchange="fileCheck(this);" required />
                                     </div>
-
-                                    <!-- Username taken from user model, this seems unnecessary -->
-                                    <input type="hidden" name="User" value="Hamza" />
-                                    <!-- DOB taken from user model, this seems unnecessary-->
-                                    <input type="hidden" name="DateOfBirth" value="20001115" />
-                                    <!-- User Id -->
-                                    <input type="hidden" name="UserId" value="3" />
                                     <!-- Status as pending by default -->
                                     <input type="hidden" name="Status" value="Pending" />
                                     <!-- Date Applied -->
-                                    <input type="hidden" name="Role" value="@DateTime.Now" />
-                            </div>
+                                    <input type="hidden" name="DateApplied" value="@DateTime.Now" />
+                                </div>
+
+
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Add</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -76,7 +73,7 @@
                 </div>
 
                 <table class="table">
-                    <thead class="thead-dark">
+                    <thead class="thead-dark" style="background-color: #1D8EA1; color: white;">
                         <tr>
                             <th scope="col">Sr#</th>
                             <th scope="col">Name</th>
@@ -86,36 +83,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>21 November 2022</td>
-                            <td>Developer</td>
-                            <td>
-                                <button class="btn btn-warning">Update</button>
-                                <button class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Mark</td>
-                            <td>1 December 2022</td>
-                            <td>Engineer</td>
-                            <td>
-                                <button class="btn btn-warning">Update</button>
-                                <button class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Mark</td>
-                            <td>21 January 2022</td>
-                            <td>SQA Engineer</td>
-                            <td>
-                                <button class="btn btn-warning">Update</button>
-                                <button class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
+                        @{int sno=1;}
+                        @foreach(var req in Model)
+                        {
+                            <tr>
+                                <th scope="row">@sno</th>
+                                <td>@req.Name</td>
+                                <td>@req.DateApplied</td>
+                                <td>@req.Position</td>
+                                <td>
+                                    <button class="btn btn-warning me-3" style="padding: 5px 20px; font-size: 18px;">Update</button>
+                                    <button class="btn btn-danger" style="padding: 5px 20px; font-size: 18px;">Delete</button>
+
+                                </td>
+                            </tr>
+                            sno++;
+                        }
+
                     </tbody>
                 </table>
             </div>

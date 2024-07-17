@@ -8,7 +8,7 @@ namespace ExaminationCenter.Models
         [Key]
         public int Id { get; set; }
 
-        public int UserId { get; set; }
+        public string Name { get; set; }
 
         public string Identity {  get; set; }
 
@@ -16,11 +16,10 @@ namespace ExaminationCenter.Models
 
         public string Status { get; set; }
 
+        public DateOnly DateOfBirth { get; set; }
+
         public DateTime DateApplied { get; set; }
 
         public string UserImage { get; set; }
-
-        [ForeignKey("UserId")]
-        public User User { get; set; }
     }
 }
