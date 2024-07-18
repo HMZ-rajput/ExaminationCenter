@@ -1,60 +1,60 @@
 ﻿@using Microsoft.AspNetCore.Http
-@inject IHttpContextAccessor Accessor;
+@inject IHttpContextAccessor Accessor
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
 }
-@using ExaminationCenter.Models;
-@using Microsoft.AspNetCore.Mvc;
+@using ExaminationCenter.Models
+@using Microsoft.AspNetCore.Mvc
 @model List<Request>
+
 @if (!string.IsNullOrEmpty(Accessor.HttpContext.Session.GetString("id")))
 {
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <div class="text-center">
-                    <h1 class="display-4">Candidate Page</h1>
-                    <h3 class="display-5">Hello Mark!</h3>
-
-                    <div class="d-flex justify-content-start mb-3">
-                        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mymodal">Add new request</a>
+                <h1 class="display-4" data-en="Candidate Page" data-ar="صفحة المرشح">Candidate Page</h1>
+                    <div class="d-flex justify-content-end mb-3">
+                        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mymodal" data-en="Add new request" data-ar="إضافة طلب جديد">Add new request</a>
                     </div>
+                <div class="text-center">
 
-                    <!--Model-->
-                    <div class="modal" id="mymodal" tabindex="-1">
+
+                    <!-- Modal for Adding Request -->
+                    <div class="modal fade" id="mymodal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Add a new request</h5>
+                                    <h5 class="modal-title" id="modalLabel" data-en="Add a new request" data-ar="إضافة طلب جديد">Add a new request</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
 
-
-                                <form method="post" action="@Url.Action("addRequest","Home")" enctype="multipart/form-data">
+                                <form method="post" action="@Url.Action("addRequest", "Home")" enctype="multipart/form-data" id="requestForm">
                                     <div class="modal-body">
+                                        <input type="hidden" id="requestId" name="Id" value="" />
                                         <!-- User Name -->
                                         <div class="form-group">
-                                            <label for="userName" class="form-label">Name</label>
+                                            <label for="userName" class="form-label" data-en="Name" data-ar="اسم">Name</label>
                                             <input type="text" name="Name" class="form-control" placeholder="Enter user name" required>
                                         </div>
                                         <!-- Identity, or Country -->
                                         <div class="form-group">
-                                            <label for="userIdentity" class="form-label">Identity</label>
-                                            <select class="selectpicker countrypicker form-control" data-default="PK"></select>
+                                            <label for="userIdentity" class="form-label" data-en="Identity" data-ar="هوية">Identity</label>
+                                            <select class="selectpicker countrypicker form-control" data-default="PK" name="Identity"></select>
                                         </div>
                                         <!-- Job Name -->
                                         <div class="form-group">
-                                            <label for="userJobName" class="form-label">Job Name</label>
+                                            <label for="userJobName" class="form-label" data-en="Job Name" data-ar="اسم الوظيفة">Job Name</label>
                                             <input type="text" name="Position" class="form-control" placeholder="Enter job name" required>
                                         </div>
                                         <!-- DOB -->
                                         <div class="form-group">
-                                            <label class="form-label" for="DateOfBirth">Date of Birth</label>
+                                            <label class="form-label" for="DateOfBirth" data-en="Date of Birth" data-ar="تاريخ الميلاد">Date of Birth</label>
                                             <input type="date" name="DateOfBirth" class="form-control" required />
                                         </div>
                                         <!-- Profile Picture -->
                                         <div class="form-group">
-                                            <label class="form-label" for="ImageData">Profile Picture</label>
+                                            <label class="form-label" for="ImageData" data-en="Profile Picture" data-ar="الصورة الشخصية">Profile Picture</label>
                                             <input type="file" name="UserImage" id="ImageData" class="form-control" onchange="fileCheck(this);" required />
                                         </div>
                                         <!-- Status as pending by default -->
@@ -63,27 +63,72 @@
                                         <input type="hidden" name="DateApplied" value="@DateTime.Now" />
                                     </div>
 
-
                                     <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">Add</button>
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" data-en="Add" data-ar="إضافة">Add</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-en="Close" data-ar="إغلاق">Close</button>
                                     </div>
                                 </form>
-
-
-
                             </div>
                         </div>
                     </div>
 
+                    <!-- Modal for Updating Request -->
+                    <div class="modal fade" id="updatemodal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalLabel" data-en="Update Request" data-ar="تحديث الطلب">Update Request</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <form method="post" action="@Url.Action("updateRequest", "Home")" enctype="multipart/form-data" id="updateRequestForm">
+                                    <div class="modal-body">
+                                        <input type="hidden" id="modal_requestId" name="Id" value="" />
+                                        <!-- User Name -->
+                                        <div class="form-group">
+                                            <label for="modal_Name" class="form-label" data-en="Name" data-ar="اسم">Name</label>
+                                            <input type="text" id="modal_Name" name="Name" class="form-control" placeholder="Enter user name" required>
+                                        </div>
+                                        <!-- Identity, or Country -->
+                                        <div class="form-group">
+                                            <label for="modal_Identity" class="form-label" data-en="Identity" data-ar="هوية">Identity</label>
+                                            <select id="modal_Identity" class="selectpicker countrypicker form-control" data-default="PK" name="Identity"></select>
+                                        </div>
+                                        <!-- Job Name -->
+                                        <div class="form-group">
+                                            <label for="modal_Position" class="form-label" data-en="Job Name" data-ar="اسم الوظيفة">Job Name</label>
+                                            <input type="text" id="modal_Position" name="Position" class="form-control" placeholder="Enter job name" required>
+                                        </div>
+                                        <!-- DOB -->
+                                        <div class="form-group">
+                                            <label class="form-label" for="modal_DateOfBirth" data-en="Date of Birth" data-ar="تاريخ الميلاد">Date of Birth</label>
+                                            <input id="modal_DateOfBirth" type="date" name="DateOfBirth" class="form-control" required />
+                                        </div>
+                                        <!-- Profile Picture -->
+                                        <div class="form-group">
+                                            <label class="form-label" for="ImageData" data-en="Profile Picture" data-ar="الصورة الشخصية">Profile Picture</label>
+                                            <input type="file" name="UserImage" id="ImageData" class="form-control" onchange="fileCheck(this);" />
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary" data-en="Update" data-ar="تحديث">Update</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-en="Close" data-ar="إغلاق">Close</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <table class="table">
                         <thead class="thead-dark" style="background-color: #1D8EA1; color: white;">
                             <tr>
-                                <th scope="col">Sr#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Date Applied</th>
-                                <th scope="col">Position</th>
-                                <th scope="col">Action</th>
+                                <th scope="col" data-en="Sr#" data-ar="رقم">Sr#</th>
+                                <th scope="col" data-en="Name" data-ar="اسم">Name</th>
+                                <th scope="col" data-en="Date Applied" data-ar="تاريخ التقديم">Date Applied</th>
+                                <th scope="col" data-en="Position" data-ar="منصب">Position</th>
+                                <th scope="col" data-en="Action" data-ar="عمل">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -98,14 +143,13 @@
                                     <td>@req.DateApplied</td>
                                     <td>@req.Position</td>
                                     <td>
-                                        <button class="btn btn-warning me-3" style="padding: 5px 20px; font-size: 18px;">Update</button>
-                                        <button class="btn btn-danger" style="padding: 5px 20px; font-size: 18px;">Delete</button>
-
+                                        <i class="bi bi-pencil-square text-warning me-3" data-bs-toggle="modal" data-bs-target="#updatemodal" onclick="editRequest('@req.Id', '@req.Name', '@req.Identity', '@req.Position', '@req.DateOfBirth.ToString("yyyy-MM-dd")')"></i>
+                                        <i class="bi bi-trash text-danger" onclick="deleteRequest('@req.Id')"></i>
                                     </td>
+
                                 </tr>
                                 sno++;
                             }
-
                         </tbody>
                     </table>
                 </div>
@@ -114,11 +158,92 @@
     </div>
 }
 
-<script>
-    var myModal = document.getElementById('myModal')
-    var myInput = document.getElementById('myInput')
+<!-- User Icon -->
+<div class="position-fixed top-0 end-0 m-3">
+    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#userModal">
+        <i class="bi bi-person-fill"></i>
+    </button>
+</div>
 
-    myModal.addEventListener('shown.bs.modal', function () {
-        myInput.focus()
-    })
+<!-- User Info Modal -->
+<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userModalLabel" data-en="User Information" data-ar="معلومات المستخدم">User Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p data-en="Name:" data-ar="اسم:">Name:</p>
+                <p>@Accessor.HttpContext.Session.GetString("name")</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-en="Close" data-ar="إغلاق">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleLanguage() {
+        var toggle = document.getElementById("languageToggle");
+        var labels = document.querySelectorAll("[data-en]");
+        if (toggle.checked) {
+            labels.forEach(function (label) {
+                label.textContent = label.getAttribute("data-ar");
+            });
+            localStorage.setItem('language', 'ar');
+        } else {
+            labels.forEach(function (label) {
+                label.textContent = label.getAttribute("data-en");
+            });
+            localStorage.setItem('language', 'en');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var toggle = document.getElementById("languageToggle");
+
+        // Retrieve the language setting from localStorage
+        var language = localStorage.getItem('language');
+        if (language === 'ar') {
+            toggle.checked = true;
+        } else {
+            toggle.checked = false;
+        }
+
+        toggleLanguage(); // Initial call to set the correct language on page load
+
+        toggle.addEventListener('change', toggleLanguage);
+    });
+
+    function editRequest(id, name, identity, position, dob) {
+        document.getElementById('modal_requestId').value = id;
+        document.getElementById('modal_Name').value = name;
+        document.getElementById('modal_Position').value = position;
+        document.getElementById('modal_DateOfBirth').value = dob;
+        document.getElementById('modalLabel').innerText = 'Update Request';
+    }
+
+
+
+    function deleteRequest(id) {
+        if (confirm("Are you sure you want to delete this request?")) {
+            fetch(`/Home/DeleteRequest/${id}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert("Failed to delete the request.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("An error occurred while deleting the request.");
+                });
+        }
+    }
+
 </script>

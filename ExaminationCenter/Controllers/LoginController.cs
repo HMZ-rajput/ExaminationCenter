@@ -54,6 +54,17 @@ namespace ExaminationCenter.Controllers
             }
         }
 
+        public IActionResult Logout()
+        {
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("id")))
+            {
+                HttpContext.Session.Remove("id");
+                HttpContext.Session.Remove("name");
+                HttpContext.Session.Remove("role");
+            }
+            return View("Login");
+        }
+
 
         public IActionResult Test()
         {

@@ -8,40 +8,48 @@
 <section class="vh-100">
     <div class="container py-5 h-100">
         <div class="row d-flex align-items-center justify-content-center h-100">
+
             <div class="col-md-8 col-lg-7 col-xl-6">
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
                      class="img-fluid" alt="Phone image">
             </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                <div class="d-flex justify-content-end mb-3">
+                    <label class="me-2" for="languageToggle" style="color:#0d6efd">English</label>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="languageToggle" onclick="toggleLanguage()">
+                    </div>
+                    <label class="ms-2" for="languageToggle" style="color:#0d6efd">العربية</label>
+                </div>
                 <form method="post" action="@Url.Action("addUser","Login")" id="form">
                     <!-- Logo -->
                     <div class="d-flex align-items-center mb-3 pb-1">
                         <img src="~/img/logo.jpeg" style="width: 25%" />
                     </div>
 
-                    <h5 class="fw-bold fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Signup your account</h5>
+                    <h5 class="fw-bold fw-normal mb-3 pb-3" style="letter-spacing: 1px;" data-en="Signup your account" data-ar="سجل حسابك">Signup your account</h5>
 
                     <!-- Username input -->
                     <div data-mdb-input-init class="form-outline mb-4">
-                        <label class="form-label" for="username">User Name</label>
+                        <label class="form-label" for="username" data-en="User Name" data-ar="اسم المستخدم">User Name</label>
                         <input type="text" id="username" name="Name" class="form-control form-control-lg" required />
                     </div>
 
                     <!-- Date of Birth input -->
                     <div data-mdb-input-init class="form-outline mb-4">
-                        <label class="form-label" for="dob">Date of Birth</label>
+                        <label class="form-label" for="dob" data-en="Date of Birth" data-ar="تاريخ الميلاد">Date of Birth</label>
                         <input type="date" id="dob" name="DateOfBirth" class="form-control form-control-lg" required />
                     </div>
 
                     <!-- Password input -->
                     <div data-mdb-input-init class="form-outline mb-4">
-                        <label class="form-label" for="password">Password</label>
+                        <label class="form-label" for="password" data-en="Password" data-ar="كلمه السر">Password</label>
                         <input type="password" id="password" name="Password" class="form-control form-control-lg" required />
                     </div>
 
                     <!-- Confirm Password input -->
                     <div data-mdb-input-init class="form-outline mb-4">
-                        <label class="form-label" for="confirmPassword">Confirm Password</label>
+                        <label class="form-label" for="confirmPassword" data-en="Confirm Password" data-ar="تأكيد كلمة المرور">Confirm Password</label>
                         <input type="password" id="confirmPassword" class="form-control form-control-lg" required />
                     </div>
 
@@ -52,27 +60,70 @@
                     <input type="hidden" name="Role" value="User" />
 
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary btn-lg btn-block fw-bold">Signup</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block fw-bold" data-en="Signup" data-ar="اشتراك">Signup</button>
                 </form>
             </div>
         </div>
     </div>
 </section>
 
-<script>
-    document.getElementById('form').addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent form submission
+<script>document.getElementById('form').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent form submission
 
-        var password = document.getElementById('password').value;
-        var confirmPassword = document.getElementById('confirmPassword').value;
+    var password = document.getElementById('password').value;
+    var confirmPassword = document.getElementById('confirmPassword').value;
+    var errorContainer = document.getElementById('passwordError');
+    var passwordRegex = /^(?=.*[A-Z])(?=.*[@@$!%*?&])[A-Za-z\d@@$!%*?&]{8,}$/;
 
-        var errorContainer = document.getElementById('passwordError');
-        if (password !== confirmPassword) {
-            errorContainer.textContent = "Passwords do not match.";
-        } else {
-            errorContainer.textContent = ""; // Clear error message if passwords match
-            // If passwords match, you can submit the form here:
-            this.submit();
-        }
-    });
+    if (password !== confirmPassword) {
+        errorContainer.textContent = document.getElementById("languageToggle").checked ? "كلمات المرور غير متطابقة" : "Passwords do not match.";
+    } else if (!passwordRegex.test(password)) {
+        errorContainer.textContent = document.getElementById("languageToggle").checked ? "يجب أن تكون كلمة المرور مكونة من 8 أحرف على الأقل وتشمل حرفًا خاصًا أو حرفًا كبيرًا واحدًا." : "Password must be at least 8 characters long and include at least one special character or one uppercase letter.";
+    } else {
+        errorContainer.textContent = ""; // Clear error message if passwords match and meet the criteria
+        // If passwords match and meet the criteria, you can submit the form here:
+        this.submit();
+    }
+});
+
+// Clear error message when typing in the password fields
+document.getElementById('password').addEventListener('input', function () {
+    document.getElementById('passwordError').textContent = "";
+});
+document.getElementById('confirmPassword').addEventListener('input', function () {
+    document.getElementById('passwordError').textContent = "";
+});
+
+function toggleLanguage() {
+    var toggle = document.getElementById("languageToggle");
+    var labels = document.querySelectorAll("[data-en]");
+    if (toggle.checked) {
+        labels.forEach(function (label) {
+            label.textContent = label.getAttribute("data-ar");
+        });
+        localStorage.setItem('language', 'ar');
+    } else {
+        labels.forEach(function (label) {
+            label.textContent = label.getAttribute("data-en");
+        });
+        localStorage.setItem('language', 'en');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    var toggle = document.getElementById("languageToggle");
+
+    // Retrieve the language setting from localStorage
+    var language = localStorage.getItem('language');
+    if (language === 'ar') {
+        toggle.checked = true;
+    } else {
+        toggle.checked = false;
+    }
+
+    toggleLanguage(); // Initial call to set the correct language on page load
+
+    toggle.addEventListener('change', toggleLanguage);
+});
+
 </script>

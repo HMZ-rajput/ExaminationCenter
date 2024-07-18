@@ -2,25 +2,26 @@
     ViewData["Title"] = "Center Manager Page";
     Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
 }
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor;
 @using ExaminationCenter.Models;
 @model List<Request>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
+                <h1 class="display-4" data-en="Center Manager Page" data-ar="صفحة مدير المركز">Center Manager Page</h1>
             <div class="text-center">
-                <h1 class="display-4">Center Manager Page</h1>
-                <h3 class="display-5">Hello Mark!</h3>
 
                 <table class="table">
                     <thead class="thead-dark" style="background-color: #1D8EA1; color: white;">
                         <tr>
-                            <th scope="col">Sr#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Date Applied</th>
-                            <th scope="col">Position</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Action</th>
+                            <th scope="col" data-en="Sr#" data-ar="الرقم التسلسلي">Sr#</th>
+                            <th scope="col" data-en="Name" data-ar="الاسم">Name</th>
+                            <th scope="col" data-en="Date Applied" data-ar="تاريخ التقديم">Date Applied</th>
+                            <th scope="col" data-en="Position" data-ar="الموضع">Position</th>
+                            <th scope="col" data-en="Status" data-ar="الحالة">Status</th>
+                            <th scope="col" data-en="Action" data-ar="الإجراء">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,18 +39,18 @@
                                     string color = "#FFFF";
                                     if (req.Status == "Accepted")
                                     {
-                                        color = "#ABFF32";
+                                        color = "#b1efb8";
                                     }
                                     else if (req.Status == "Rejected")
                                     {
-                                        color = "#F44336";
+                                        color = "#ff6d79";
                                     }
                                 }
 
                                 <td style="background-color: @color;">@req.Status</td>
                                 <td>
-                                    <a href="/Home/AcceptReq?id=@req.Id" class="btn btn-success me-3" style="padding: 5px 20px; font-size: 18px;">Accept</a>
-                                    <a href="/Home/RejectReq?id=@req.Id" class="btn btn-danger" style="padding: 5px 20px; font-size: 18px;">Reject</a>
+                                    <a href="/Home/AcceptReq?id=@req.Id" class="btn btn-success me-3" style="padding: 5px 20px; font-size: 18px;" data-en="Accept" data-ar="قبول">Accept</a>
+                                    <a href="/Home/RejectReq?id=@req.Id" class="btn btn-danger" style="padding: 5px 20px; font-size: 18px;" data-en="Reject" data-ar="رفض">Reject</a>
                                 </td>
                             </tr>
                             sno++;
@@ -57,6 +58,32 @@
 
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- User Icon -->
+<div class="position-fixed top-0 end-0 m-3">
+    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#userModal">
+        <i class="bi bi-person-fill"></i>
+    </button>
+</div>
+
+<!-- User Info Modal -->
+<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userModalLabel" data-en="User Information" data-ar="معلومات المستخدم">User Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p data-en="Name:" data-ar="اسم:">Name:</p>
+                <p>@Accessor.HttpContext.Session.GetString("name")</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-en="Close" data-ar="إغلاق">Close</button>
             </div>
         </div>
     </div>

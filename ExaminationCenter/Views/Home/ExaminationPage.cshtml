@@ -2,11 +2,13 @@
     ViewData["Title"] = "Examination Page";
     Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
 }
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor;
 
 <h2>Examination page</h2>
 
 <form method="post" action="/Home/SubmitExamination" id="examinationForm">
-    <input type="hidden" value="DrName" name="Name" />
+    <input type="hidden" value="@Accessor.HttpContext.Session.GetString("name")" name="Name" />
     <div class="form-group mx-auto mb-3">
         <label for="bloodType" class="mr-2">Blood type:</label>
         <select id="bloodType" name="bloodType" class="form-control" style="width: 100px;">

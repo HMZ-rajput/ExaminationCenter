@@ -31,7 +31,6 @@ namespace ExaminationCenter.Controllers
                 return View(requests);
             }
             return RedirectToAction("Login", "Login");
-
         }
 
         // Examination center
@@ -91,6 +90,7 @@ namespace ExaminationCenter.Controllers
             FileStream fs = new FileStream(filepath, FileMode.Create);
             UserImage.CopyTo(fs);
             request.UserImage = uniqueFileName;
+            request.Id = 0;
 
             _context.requests.Add(request);
             _context.SaveChanges();
@@ -98,6 +98,82 @@ namespace ExaminationCenter.Controllers
             }
             return View("Index");
         }
+
+        [HttpPost("Home/UpdateRequest")]
+        public IActionResult updateRequest(IFormFile UserImage, Request request)
+        {
+            if (request != null)
+            {
+                var existingRequest = _context.requests.Find(request.Id);
+                if (existingRequest != null)
+                {
+                    if (UserImage != null)
+                    {
+                        string filename = Path.GetFileName(UserImage.FileName);
+                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + filename;
+                        string filepath = Path.Combine(_env.WebRootPath, "images/" + uniqueFileName);
+                        using (FileStream fs = new FileStream(filepath, FileMode.Create))
+                        {
+                            UserImage.CopyTo(fs);
+                        }
+                        existingRequest.UserImage = uniqueFileName;
+                    }
+
+                    existingRequest.Id = request.Id;
+                    existingRequest.Name = request.Name;
+                    existingRequest.Identity = request.Identity;
+                    existingRequest.Position = request.Position;
+                    existingRequest.DateOfBirth = request.DateOfBirth;
+
+                    //_context.Entry(existingRequest).State = EntityState.Modified;
+
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("Error","Error");
+                }
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost("Home/UpdateRequestEC")]
+        public IActionResult updateRequestEC(IFormFile UserImage, Request request)
+        {
+            if (request != null)
+            {
+                var existingRequest = _context.requests.Find(request.Id);
+                    
+                existingRequest.Id = request.Id;
+                existingRequest.Name = request.Name;
+                existingRequest.Position = request.Position;
+
+                //_context.Entry(existingRequest).State = EntityState.Modified;
+
+                _context.SaveChanges();
+                return RedirectToAction("ExaminationCenter");
+            }
+            return RedirectToAction("ExaminationCenter");
+        }
+
+        [HttpDelete("Home/DeleteRequest/{id}")]
+        public IActionResult DeleteRequest(int id)
+        {
+            var request = _context.requests.Find(id);
+            if (request != null)
+            {
+                _context.requests.Remove(request);
+                _context.SaveChanges();
+                return Ok(); // Return 200 OK status
+            }
+            else
+            {
+                return NotFound(); // Handle case where request with given ID is not found
+            }
+        }
+
+
 
         //Add examination form from examination page
         [HttpPost("Home/SubmitExamination")]
