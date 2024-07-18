@@ -13,6 +13,7 @@ namespace ExaminationCenter.Controllers
             _context = context;
         }
 
+        [HttpGet("Login/Login")]
         public IActionResult Login()
         {
             ViewBag.message = ViewBag.message;
@@ -39,7 +40,12 @@ namespace ExaminationCenter.Controllers
 
             if(row != null)
             {
+                HttpContext.Session.SetString("id", row.Id.ToString());
+                HttpContext.Session.SetString("role", "Admin");
+                HttpContext.Session.SetString("name",row.Name);
+
                 return RedirectToAction("Index", "Home");
+
             }
             else
             {

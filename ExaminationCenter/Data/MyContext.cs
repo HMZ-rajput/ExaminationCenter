@@ -16,5 +16,6 @@ namespace ExaminationCenter.Data
 
         public DbSet<User> users { get; set; }
         public DbSet<Request> requests { get; set; }
+        public DbSet<Examination> examinations { get; set; }
     }
 }

@@ -13,7 +13,9 @@ namespace ExaminationCenter
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<MyContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DB")));
-            
+            builder.Services.AddSession(options => options.IdleTimeout = TimeSpan.FromSeconds(100));
+            builder.Services.AddHttpContextAccessor();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -24,7 +26,7 @@ namespace ExaminationCenter
                 app.UseHsts();
             }
 
-
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -34,7 +36,7 @@ namespace ExaminationCenter
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Login}/{action=Login}/{id?}");
 
             app.Run();
         }

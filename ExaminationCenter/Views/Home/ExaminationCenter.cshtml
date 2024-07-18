@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Examination Page";
+    ViewData["Title"] = "Examination Center Page";
     Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
 }
 @using ExaminationCenter.Models;
@@ -47,11 +47,11 @@
                                     <td>@req.Position</td>
                                     @{
                                         string color = "#FFFF";
-                                        if (req.Status == "Present")
+                                        if (req.Status == "Accepted")
                                         {
                                             color = "#ABFF32";
                                         }
-                                        else if (req.Status == "Absent")
+                                        else if (req.Status == "Rejected")
                                         {
                                             color = "#F44336";
                                         }

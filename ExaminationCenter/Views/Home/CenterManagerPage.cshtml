@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Center Manager Page";
+    Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
+}
+@using ExaminationCenter.Models;
+@model List<Request>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center">
+                <h1 class="display-4">Center Manager Page</h1>
+                <h3 class="display-5">Hello Mark!</h3>
+
+                <table class="table">
+                    <thead class="thead-dark" style="background-color: #1D8EA1; color: white;">
+                        <tr>
+                            <th scope="col">Sr#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Date Applied</th>
+                            <th scope="col">Position</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sno = 1;
+                        }
+                        @foreach (var req in Model)
+                        {
+                            <tr>
+                                <th scope="row">@sno</th>
+                                <td>@req.Name</td>
+                                <td>@req.DateApplied</td>
+                                <td>@req.Position</td>
+                                @{
+                                    string color = "#FFFF";
+                                    if (req.Status == "Accepted")
+                                    {
+                                        color = "#ABFF32";
+                                    }
+                                    else if (req.Status == "Rejected")
+                                    {
+                                        color = "#F44336";
+                                    }
+                                }
+
+                                <td style="background-color: @color;">@req.Status</td>
+                                <td>
+                                    <a href="/Home/AcceptReq?id=@req.Id" class="btn btn-success me-3" style="padding: 5px 20px; font-size: 18px;">Accept</a>
+                                    <a href="/Home/RejectReq?id=@req.Id" class="btn btn-danger" style="padding: 5px 20px; font-size: 18px;">Reject</a>
+                                </td>
+                            </tr>
+                            sno++;
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

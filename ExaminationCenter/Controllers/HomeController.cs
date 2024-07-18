@@ -20,34 +20,71 @@ namespace ExaminationCenter.Controllers
             _env = env;
         }
 
+        //Home page or Candidate Page
         [HttpGet("")]
         [HttpGet("Home/Index")]
         public IActionResult Index()
         {
-            var requests = _context.requests.ToList();
-            return View(requests);
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("id")))
+            {
+                var requests = _context.requests.ToList();
+                return View(requests);
+            }
+            return RedirectToAction("Login", "Login");
+
         }
 
+        // Examination center
         [HttpGet("Home/ExaminationCenter")]
         public IActionResult ExaminationCenter(string searchText)
         {
-            var requests = _context.requests.ToList();
-
-            if (!string.IsNullOrEmpty(searchText))
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("id")))
             {
-                requests = requests.Where(r => r.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase)).ToList();
+                var requests = _context.requests.ToList();
+
+                if (!string.IsNullOrEmpty(searchText))
+                {
+                    requests = requests.Where(r => r.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase)).ToList();
+                }
+
+                if (requests.Count == 0)
+                    ViewBag.Message = "No matching result!";
+
+                return View(requests);
             }
-
-            if (requests.Count == 0)
-                ViewBag.Message = "No matching result!";
-
-            return View(requests);
+            return RedirectToAction("Login", "Login");           
 
         }
 
+        //Center Manager (accept/reject wala)
+        [HttpGet("Home/CenterManagerPage")]
+        public IActionResult CenterManagerPage()
+        {
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("id")))
+            {
+                var requests = _context.requests.ToList();
+                return View(requests);
+            }
+            return RedirectToAction("Login", "Login");
+        }
+
+        //Examination page Dr form wala
+        [HttpGet("Home/ExaminationPage")]
+        public IActionResult ExaminationPage()
+        {
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("id")))
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Login");
+        }
+
+        //add request from candidate page
         [HttpPost("Home/AddRequest")]
         public IActionResult addRequest(IFormFile UserImage,Request request)
         {
+            if (request != null && UserImage != null)
+            { 
             string filename = Path.GetFileName(UserImage.FileName);
             string uniqueFileName = Guid.NewGuid().ToString()+"_"+filename;
             string filepath = Path.Combine(_env.WebRootPath, "images/" + uniqueFileName);
@@ -58,11 +95,59 @@ namespace ExaminationCenter.Controllers
             _context.requests.Add(request);
             _context.SaveChanges();
             return RedirectToAction("Index");
+            }
+            return View("Index");
         }
 
-        public IActionResult Privacy()
+        //Add examination form from examination page
+        [HttpPost("Home/SubmitExamination")]
+        public IActionResult SubmitExamination(Examination examination)
         {
-            return View();
+            if(examination != null)
+            {
+                _context.examinations.Add(examination);
+                _context.SaveChanges();
+                return RedirectToAction("ExaminationPage");
+            }
+            return View("Index");
+        }
+
+        //accepted from center manager page
+        public IActionResult AcceptReq(int id)
+        {
+            if (id != null)
+            {
+                var request = _context.requests.FirstOrDefault(r => r.Id == id);
+                if (request != null)
+                {
+                    request.Status = "Accepted";
+                    _context.SaveChanges();
+                }
+            }
+            return RedirectToAction("CenterManagerPage");
+        }
+
+        //rejected from center manager page
+        public IActionResult RejectReq(int id)
+        {
+            if (id != null)
+            {
+                var request = _context.requests.FirstOrDefault(r => r.Id == id);
+                if (request != null)
+                {
+                    request.Status = "Rejected";
+                    _context.SaveChanges();
+                }
+            }
+            return RedirectToAction("CenterManagerPage");
+        }
+
+        //used to fetch examination from. not in use since no view for exam
+        [HttpGet("/Home/GetExaminations")]
+        public IActionResult GetExaminations()
+        {
+            var examinations = _context.examinations.ToList(); // Adjust this line to match your database structure
+            return Json(examinations);
         }
 
 
