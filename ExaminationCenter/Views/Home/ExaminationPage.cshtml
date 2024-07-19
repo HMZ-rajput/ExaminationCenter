@@ -4,24 +4,44 @@
 }
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor Accessor;
+@using ExaminationCenter.Models;
+@model List<Request>
 
 <h2>Examination page</h2>
 
 <form method="post" action="/Home/SubmitExamination" id="examinationForm">
     <input type="hidden" value="@Accessor.HttpContext.Session.GetString("name")" name="Name" />
-    <div class="form-group mx-auto mb-3">
-        <label for="bloodType" class="mr-2">Blood type:</label>
-        <select id="bloodType" name="bloodType" class="form-control" style="width: 100px;">
-            <option value="A+">A+</option>
-            <option value="A-">A-</option>
-            <option value="B+">B+</option>
-            <option value="B-">B-</option>
-            <option value="AB+">AB+</option>
-            <option value="AB-">AB-</option>
-            <option value="O+">O+</option>
-            <option value="O-">O-</option>
-        </select>
+    <div class="d-flex justify-content-between mb-3">
+        <div class="form-group">
+            <label for="bloodType" class="mr-2">Blood type:</label>
+            <select id="bloodType" name="bloodType" class="form-control" style="width: 100px;">
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select>
+        </div>
+
+        <span class="mx-3" style="font-size: 40px; font-weight: bold;">@Accessor.HttpContext.Session.GetString("name")</span>
+
+        <div class="form-group">
+            <label for="requests" class="mr-2">Requests:</label>
+            <select id="ReqId" name="ReqId" class="form-control" style="width: 100px;" required>
+                @if(Model is not null)
+                {
+                    foreach (var req in Model)
+                    {
+                        <option value="@req.Id">@req.Name</option>
+                    }
+                }
+            </select>
+        </div>
     </div>
+
 
     <table class="table table-bordered" style="margin-top: 20px;">
         <thead>
@@ -137,7 +157,7 @@
                 <td>- HIV test</td>
                 <td class="radio-cell"><input type="radio" name="hiv" value="normal" hidden /></td>
                 <td class="radio-cell"><input type="radio" name="hiv" value="abnormal" hidden /></td>
-                <td><input type="hiv" name="vocal_note" class="form-control no-border-input" /></td>
+                <td><input type="hiv" name="hiv_note" class="form-control no-border-input" /></td>
             </tr>
             <!-- Lab. & Rad. Examination -->
             <tr>
@@ -249,6 +269,8 @@
         align-items: center;
         justify-content: center;
     }
+
+ 
 </style>
 
 <script>

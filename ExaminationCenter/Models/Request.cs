@@ -16,6 +16,10 @@ namespace ExaminationCenter.Models
 
         public string Status { get; set; }
 
+        public bool? AttendendeStatus { get; set; }
+
+        public DateTime? AttendenceTime { get; set; }
+
         public DateOnly DateOfBirth { get; set; }
 
         public DateTime DateApplied { get; set; }

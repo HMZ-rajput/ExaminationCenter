@@ -28,10 +28,21 @@ namespace ExaminationCenter.Controllers
         [HttpPost]
         public IActionResult addUser(User user)
         {
+            // Check if the username already exists
+            var existingUser = _context.users.FirstOrDefault(u => u.Name == user.Name);
+            if (existingUser != null)
+            {
+                // Username already taken, set ViewBag error message and return view
+                ViewData["message"] = "Username is already taken. Please choose a different one.";
+                return View("Register");
+            }
+
+            // Username is available, add the user to the database
             _context.users.Add(user);
             _context.SaveChanges();
             return RedirectToAction("Login");
         }
+
 
         [HttpPost]
         public IActionResult loginUser(string username, string password) 
@@ -41,10 +52,26 @@ namespace ExaminationCenter.Controllers
             if(row != null)
             {
                 HttpContext.Session.SetString("id", row.Id.ToString());
-                HttpContext.Session.SetString("role", "Admin");
+                HttpContext.Session.SetString("role", row.Role);
                 HttpContext.Session.SetString("name",row.Name);
 
-                return RedirectToAction("Index", "Home");
+                if (HttpContext.Session.GetString("role") == "Candidate")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                if (HttpContext.Session.GetString("role") == "Examination Center")
+                {
+                    return RedirectToAction("ExaminationCenter", "Home");
+                }
+                if (HttpContext.Session.GetString("role") == "Doctor")
+                {
+                    return RedirectToAction("ExaminationPage", "Home");
+                }
+                if (HttpContext.Session.GetString("role") == "Center Director")
+                {
+                    return RedirectToAction("CenterManagerPage", "Home");
+                }
+                return RedirectToAction("Error", "Error");
 
             }
             else

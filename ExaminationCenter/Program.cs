@@ -13,7 +13,7 @@ namespace ExaminationCenter
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<MyContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DB")));
-            builder.Services.AddSession(options => options.IdleTimeout = TimeSpan.FromSeconds(100));
+            builder.Services.AddSession(options => options.IdleTimeout = TimeSpan.FromSeconds(600));
             builder.Services.AddHttpContextAccessor();
 
             var app = builder.Build();

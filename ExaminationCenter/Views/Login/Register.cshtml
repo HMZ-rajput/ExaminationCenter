@@ -10,7 +10,7 @@
         <div class="row d-flex align-items-center justify-content-center h-100">
 
             <div class="col-md-8 col-lg-7 col-xl-6">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                <img src="~/img/bg.jpeg"
                      class="img-fluid" alt="Phone image">
             </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
@@ -41,6 +41,18 @@
                         <input type="date" id="dob" name="DateOfBirth" class="form-control form-control-lg" required />
                     </div>
 
+                    <!-- Role dropdown -->
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <label class="form-label" for="role" data-en="Roles" data-ar="الأدوار">Roles</label>
+                        <select id="role" name="Role" class="form-control form-control-lg" required>
+                            <option value="" disabled selected data-en="Select your role" data-ar="اختر دورك">Select your role / اختر دورك</option>
+                            <option value="Candidate" data-en="Candidate" data-ar="مرشح">Candidate / مرشح</option>
+                            <option value="Examination Center" data-en="Examination Center" data-ar="مركز الامتحان">Examination Center / مركز الامتحان</option>
+                            <option value="Center Director" data-en="Center Director" data-ar="مدير المركز">Center Director / مدير المركز</option>
+                            <option value="Doctor" data-en="Doctor" data-ar="طبيب">Doctor / طبيب</option>
+                        </select>
+                    </div>
+
                     <!-- Password input -->
                     <div data-mdb-input-init class="form-outline mb-4">
                         <label class="form-label" for="password" data-en="Password" data-ar="كلمه السر">Password</label>
@@ -55,13 +67,12 @@
 
                     <!-- Error message container for password mismatch -->
                     <div id="passwordError" class="text-danger mb-3"></div>
-
-                    <!-- Role -->
-                    <input type="hidden" name="Role" value="User" />
+                    <div id="userError" class="text-danger mb-3">@ViewData["message"]</div>
 
                     <!-- Submit button -->
                     <button type="submit" class="btn btn-primary btn-lg btn-block fw-bold" data-en="Signup" data-ar="اشتراك">Signup</button>
                 </form>
+
             </div>
         </div>
     </div>

@@ -2,6 +2,8 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
     string currentAction = ViewContext.RouteData.Values["action"].ToString();
 }
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor;
 <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
@@ -17,26 +19,39 @@
                     <label class="ms-2" for="languageToggle" style="color:#0d6efd">العربية</label>
                 </div>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li class="nav-item">
-                        <a href="@Url.Action("Index","Home")" class="nav-link align-middle px-0 @(currentAction == "Index" ? "active" : "")" style="width: 200px">
-                            <i class="fs-4 bi-house" style="margin-left:5px"></i> <span class="ms-1 d-none d-sm-inline" data-en="Candidate" data-ar="مرشح">Candidate</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("ExaminationCenter","Home")" class="nav-link px-0 align-middle @(currentAction == "ExaminationCenter" ? "active" : "")" style="width: 200px">
-                            <i class="fs-4 bi-speedometer2" style="margin-left:5px"></i> <span class="ms-1 d-none d-sm-inline" data-en="Examination Center" data-ar="مركز الامتحانات">Examination Center</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("ExaminationPage","Home")" class="nav-link px-0 align-middle @(currentAction == "ExaminationPage" ? "active" : "")" style="width: 200px">
-                            <i class="fs-4 bi-table" style="margin-left:5px"></i> <span class="ms-1 d-none d-sm-inline" data-en="Examination Page" data-ar="صفحة الامتحان">Examination Page</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("CenterManagerPage","Home")" class="nav-link px-0 align-middle @(currentAction == "CenterManagerPage" ? "active" : "")" style="width: 200px">
-                            <i class="fs-4 bi-grid" style="margin-left:5px"></i> <span class="ms-1 d-none d-sm-inline" data-en="Center Manager Page" data-ar="صفحة مدير المركز">Center Manager Page</span>
-                        </a>
-                    </li>
+                    @if (Accessor.HttpContext.Session.GetString("role") == "Candidate")
+                    {
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","Home")" class="nav-link align-middle px-0 @(currentAction == "Index" ? "active" : "")" style="width: 200px">
+                                <i class="fs-4 bi-house" style="margin-left:5px"></i> <span class="ms-1 d-none d-sm-inline" data-en="Candidate" data-ar="مرشح">Candidate</span>
+                            </a>
+                        </li>
+                    }
+                    @if (Accessor.HttpContext.Session.GetString("role") == "Examination Center")
+                    {
+                        <li>
+                            <a href="@Url.Action("ExaminationCenter","Home")" class="nav-link px-0 align-middle @(currentAction == "ExaminationCenter" ? "active" : "")" style="width: 200px">
+                                <i class="fs-4 bi-speedometer2" style="margin-left:5px"></i> <span class="ms-1 d-none d-sm-inline" data-en="Examination Center" data-ar="مركز الامتحانات">Examination Center</span>
+                            </a>
+                        </li>
+                        
+                    }
+                    @if (Accessor.HttpContext.Session.GetString("role") == "Doctor")
+                    {
+                        <li>
+                            <a href="@Url.Action("ExaminationPage","Home")" class="nav-link px-0 align-middle @(currentAction == "ExaminationPage" ? "active" : "")" style="width: 200px">
+                                <i class="fs-4 bi-table" style="margin-left:5px"></i> <span class="ms-1 d-none d-sm-inline" data-en="Examination Page" data-ar="صفحة الامتحان">Examination Page</span>
+                            </a>
+                        </li>
+                    }
+                    @if (Accessor.HttpContext.Session.GetString("role") == "Center Director")
+                    {
+                        <li>
+                            <a href="@Url.Action("CenterManagerPage","Home")" class="nav-link px-0 align-middle @(currentAction == "CenterManagerPage" ? "active" : "")" style="width: 200px">
+                                <i class="fs-4 bi-grid" style="margin-left:5px"></i> <span class="ms-1 d-none d-sm-inline" data-en="Center Manager Page" data-ar="صفحة مدير المركز">Center Manager Page</span>
+                            </a>
+                        </li>                        
+                    }
                     <li>
                         <a href="@Url.Action("Logout","Login")" class="nav-link px-0 align-middle @(currentAction == "Logout" ? "active" : "")" style="width: 200px">
                             <i class="fs-4 bi-box-arrow-left" style="margin-left:5px"></i> <span class="ms-1 d-none d-sm-inline" data-en="Logout" data-ar="تسجيل خروج">Logout</span>

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ExaminationCenter.Models
 {
@@ -6,6 +7,9 @@ namespace ExaminationCenter.Models
     {
         [Key]
         public int Id { get; set; }
+
+        public int ReqId { get; set; }
+
         public string Name { get; set; }
         public string bloodType { get; set; }
 
@@ -84,5 +88,8 @@ namespace ExaminationCenter.Models
 
         public string others { get; set; }
         public string? others_note { get; set; }
+
+        [ForeignKey("ReqId")]
+        public Request request { get; set; }
     }
 }

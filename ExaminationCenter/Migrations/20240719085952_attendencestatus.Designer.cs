@@ -4,6 +4,7 @@ using ExaminationCenter.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExaminationCenter.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20240719085952_attendencestatus")]
+    partial class attendencestatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,9 +36,6 @@ namespace ExaminationCenter.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ReqId")
-                        .HasColumnType("int");
 
                     b.Property<string>("bloodType")
                         .IsRequired()
@@ -218,8 +218,6 @@ namespace ExaminationCenter.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReqId");
-
                     b.ToTable("examinations");
                 });
 
@@ -234,8 +232,8 @@ namespace ExaminationCenter.Migrations
                     b.Property<DateTime?>("AttendenceTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("AttendendeStatus")
-                        .HasColumnType("bit");
+                    b.Property<string>("AttendendeStatus")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateApplied")
                         .HasColumnType("datetime2");
@@ -294,17 +292,6 @@ namespace ExaminationCenter.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("users");
-                });
-
-            modelBuilder.Entity("ExaminationCenter.Models.Examination", b =>
-                {
-                    b.HasOne("ExaminationCenter.Models.Request", "request")
-                        .WithMany()
-                        .HasForeignKey("ReqId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("request");
                 });
 #pragma warning restore 612, 618
         }
