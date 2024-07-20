@@ -16,7 +16,7 @@
                 <table class="table">
                     <thead class="thead-dark" style="background-color: #1D8EA1; color: white;">
                         <tr>
-                            <th scope="col" data-en="Sr#" data-ar="الرقم التسلسلي">Sr#</th>
+                            <th scope="col" data-en="Order#" data-ar="الرقم التسلسلي">Order#</th>
                             <th scope="col" data-en="Name" data-ar="الاسم">Name</th>
                             <th scope="col" data-en="Date Applied" data-ar="تاريخ التقديم">Date Applied</th>
                             <th scope="col" data-en="Position" data-ar="الموضع">Position</th>
@@ -122,184 +122,184 @@
                             </select>
                         </div>
 
-                        @* <span class="mx-3" style="font-size: 40px; font-weight: bold;">@Accessor.HttpContext.Session.GetString("name")</span> *@
+                        @* <span class="mx-3" style="font-size: 40px; font-weight: bold;" name="drName">@Accessor.HttpContext.Session.GetString("name")</span> *@
 
                     </div>
 
                     <!-- The rest of your form elements here -->
                     <!-- Set form elements to read-only -->
 
-                    <table class="table table-bordered" style="margin-top: 20px;">
+                    <table class="table table-bordered" style="margin-top: 20px; border: 2px solid black;">
                         <thead>
                             <tr>
-                                <th colspan="2">Examination</th>
-                                <th>Normal</th>
-                                <th>Abnormal</th>
-                                <th>Note</th>
+                                <th colspan="2" style="border: 2px solid black;">Examination</th>
+                                <th style="border: 2px solid black;">Normal</th>
+                                <th style="border: 2px solid black;">Abnormal</th>
+                                <th style="border: 2px solid black;">Note</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- Vision Examination -->
                             <tr>
-                                <td rowspan="3" class="vertical-text narrow-column"><span>Vision Examination</span></td>
-                                <td>- Rt. eye</td>
-                                <td class="radio-cell"><input type="radio" name="rt_eye" value="normal" disabled /></td>
-                                <td class="radio-cell"><input type="radio" name="rt_eye" value="abnormal" disabled /></td>
-                                <td><input type="text" name="rt_eye_note" class="form-control no-border-input" /></td>
+                                <td rowspan="3" class="vertical-text style=" border: 2px solid black;" narrow-column"><span>Vision Examination</span></td>
+                                <td style="border: 2px solid black;">- Rt. eye</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="rt_eye" value="normal" disabled /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="rt_eye" value="abnormal" disabled /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="rt_eye_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- Lt. eye</td>
-                                <td class="radio-cell"><input type="radio" name="lt_eye" value="normal" disabled /></td>
-                                <td class="radio-cell"><input type="radio" name="lt_eye" value="abnormal" disabled /></td>
-                                <td><input type="text" name="lt_eye_note" class="form-control no-border-input" readonly /></td>
+                                <td style="border: 2px solid black;">- Lt. eye</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="lt_eye" value="normal" disabled /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="lt_eye" value="abnormal" disabled /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="lt_eye_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- Colour discrimination</td>
-                                <td class="radio-cell"><input type="radio" name="color_disc" value="normal" disabled /></td>
-                                <td class="radio-cell"><input type="radio" name="color_disc" value="abnormal" disabled /></td>
-                                <td><input type="text" name="color_disc_note" class="form-control no-border-input" readonly /></td>
+                                <td style="border: 2px solid black;">- Colour discrimination</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="color_disc" value="normal" disabled /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="color_disc" value="abnormal" disabled /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="color_disc_note" class="form-control no-border-input" /></td>
                             </tr>
 
                             <!-- Hearing and Speech -->
                             <tr>
-                                <td rowspan="3" class="vertical-text"><span>Hearing and speech</span></td>
-                                <td>- Rt. Ear</td>
-                                <td class="radio-cell"><input type="radio" name="rt_ear" value="normal" disabled /></td>
-                                <td class="radio-cell"><input type="radio" name="rt_ear" value="abnormal" disabled /></td>
-                                <td><input type="text" name="rt_ear_note" class="form-control no-border-input" readonly /></td>
+                                <td style="border: 2px solid black;" rowspan="3" class="vertical-text"><span>Hearing and speech</span></td>
+                                <td style="border: 2px solid black;">- Rt. Ear</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="rt_ear" value="normal" disabled /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="rt_ear" value="abnormal" disabled /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="rt_ear_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- Lt. Ear</td>
-                                <td class="radio-cell"><input type="radio" name="lt_ear" value="normal" disabled /></td>
-                                <td class="radio-cell"><input type="radio" name="lt_ear" value="abnormal" disabled /></td>
-                                <td><input type="text" name="lt_ear_note" class="form-control no-border-input" readonly /></td>
+                                <td style="border: 2px solid black;">- Lt. Ear</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="lt_ear" value="normal" disabled /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="lt_ear" value="abnormal" disabled /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="lt_ear_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- Vocalization</td>
-                                <td class="radio-cell"><input type="radio" name="vocal" value="normal" disabled /></td>
-                                <td class="radio-cell"><input type="radio" name="vocal" value="abnormal" disabled /></td>
-                                <td><input type="text" name="vocal_note" class="form-control no-border-input" readonly /></td>
+                                <td style="border: 2px solid black;">- Vocalization</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="vocal" value="normal" disabled /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="vocal" value="abnormal" disabled /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="vocal_note" class="form-control no-border-input" /></td>
                             </tr>
 
                             <!-- Other Examination -->
                             <tr>
-                                <td rowspan="7" class="vertical-text"><span>Other examination</span></td>
-                                <td>- B.P</td>
-                                <td class="radio-cell"><input type="radio" name="bp" value="normal" disabled /></td>
+                                <td style="border: 2px solid black;" rowspan="7" class="vertical-text"><span>Other examination</span></td>
+                                <td style="border: 2px solid black;">- B.P</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="bp" value="normal" disabled /></td>
                                 <td class="radio-cell"><input type="radio" name="bp" value="abnormal" disabled /></td>
-                                <td><input type="text" name="bp_note" class="form-control no-border-input" readonly /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="bp_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- C.V.S</td>
-                                <td class="radio-cell"><input type="radio" name="cvs" value="normal" disabled /></td>
-                                <td class="radio-cell"><input type="radio" name="cvs" value="abnormal" disabled /></td>
-                                <td><input type="text" name="cvs_note" class="form-control no-border-input" readonly /></td>
+                                <td style="border: 2px solid black;">- C.V.S</td>
+                                <td style="border: 2px solid black;"  class="radio-cell"><input type="radio" name="cvs" value="normal" disabled /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="cvs" value="abnormal" disabled /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="cvs_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- Resp. S</td>
-                                <td class="radio-cell"><input type="radio" name="resp" value="normal" disabled /></td>
-                                <td class="radio-cell"><input type="radio" name="resp" value="abnormal" disabled /></td>
-                                <td><input type="text" name="resp_note" class="form-control no-border-input" readonly /></td>
+                                <td style="border: 2px solid black;">- Resp. S</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="resp" value="normal" disabled /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="resp" value="abnormal" disabled /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="resp_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- C.N.S</td>
-                                <td class="radio-cell"><input type="radio" name="cns" value="normal" disabled /></td>
-                                <td class="radio-cell"><input type="radio" name="cns" value="abnormal" disabled /></td>
-                                <td><input type="text" name="cns_note" class="form-control no-border-input" readonly /></td>
+                                <td style="border: 2px solid black;">- C.N.S</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="cns" value="normal" disabled /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="cns" value="abnormal" disabled /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="cns_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- G.I.T</td>
-                                <td class="radio-cell"><input type="radio" name="git" value="normal" disabled /></td>
-                                <td class="radio-cell"><input type="radio" name="git" value="abnormal" disabled /></td>
-                                <td><input type="text" name="git_note" class="form-control no-border-input" readonly /></td>
+                                <td style="border: 2px solid black;">- G.I.T</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="git" value="normal" disabled /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="git" value="abnormal" disabled /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="git_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- Psychological exam</td>
-                                <td class="radio-cell"><input type="radio" name="psyc" value="normal" disabled /></td>
-                                <td class="radio-cell"><input type="radio" name="psyc" value="abnormal" disabled /></td>
-                                <td><input type="text" name="psyc_note" class="form-control no-border-input" readonly /></td>
+                                <td style="border: 2px solid black;">- Psychological exam</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="psyc" value="normal" disabled /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="psyc" value="abnormal" disabled /></t>
+                                <td style="border: 2px solid black;"><input type="text" name="psyc_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- Phy. Disablility "detine"</td>
-                                <td class="radio-cell"><input type="radio" name="dis" value="normal" disabled /></td>
-                                <td class="radio-cell"><input type="radio" name="dis" value="abnormal" disabled /></td>
-                                <td><input type="text" name="dis_note" class="form-control no-border-input" readonly /></td>
+                                <td style="border: 2px solid black;">- Phy. Disablility "detine"</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="dis" value="normal" disabled /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="dis" value="abnormal" disabled /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="dis_note" class="form-control no-border-input" /></td>
                             </tr>
                             <!-- Serological Tests -->
                             <tr>
-                                <td rowspan="3" class="vertical-text"><span>Serological Tests</span></td>
-                                <td>- Viral hepatitis (B) "HBs Ag"</td>
-                                <td class="radio-cell"><input type="radio" name="hep_b" value="normal" hidden /></td>
-                                <td class="radio-cell"><input type="radio" name="hep_b" value="abnormal" hidden /></td>
-                                <td><input type="text" name="hep_b_note" class="form-control no-border-input" /></td>
+                                <td style="border: 2px solid black;" rowspan="3" class="vertical-text"><span>Serological Tests</span></td>
+                                <td style="border: 2px solid black;">- Viral hepatitis (B) "HBs Ag"</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="hep_b" value="normal" hidden /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="hep_b" value="abnormal" hidden /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="hep_b_note" class="form-control no-border-input" /></t>
                             </tr>
                             <tr>
-                                <td>- Viral hepatitis (C) "HBs Ag"</td>
-                                <td class="radio-cell"><input type="radio" name="hep_c" value="normal" hidden /></td>
-                                <td class="radio-cell"><input type="radio" name="hep_c" value="abnormal" hidden /></td>
-                                <td><input type="text" name="hep_c_note" class="form-control no-border-input" /></td>
+                                <td style="border: 2px solid black;">- Viral hepatitis (C) "HBs Ag"</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="hep_c" value="normal" hidden /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="hep_c" value="abnormal" hidden /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="hep_c_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- HIV test</td>
-                                <td class="radio-cell"><input type="radio" name="hiv" value="normal" hidden /></td>
-                                <td class="radio-cell"><input type="radio" name="hiv" value="abnormal" hidden /></td>
-                                <td><input type="hiv" name="hiv_note" class="form-control no-border-input" /></td>
+                                <td style="border: 2px solid black;">- HIV test</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="hiv" value="normal" hidden /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="hiv" value="abnormal" hidden /></td>
+                                <td style="border: 2px solid black;"><input type="hiv" name="hiv_note" class="form-control no-border-input" /></td>
                             </tr>
                             <!-- Lab. & Rad. Examination -->
                             <tr>
-                                <td rowspan="9" class="vertical-text"><span>Lab. & Rad. Examination</span></td>
-                                <td>- Chest X-ray</td>
-                                <td class="radio-cell"><input type="radio" name="xray" value="normal" hidden /></td>
-                                <td class="radio-cell"><input type="radio" name="xray" value="abnormal" hidden /></td>
-                                <td><input type="text" name="xray_note" class="form-control no-border-input" /></td>
+                                <td style="border: 2px solid black;" rowspan="9" class="vertical-text"><span>Lab. & Rad. Examination</span></td>
+                                <td style="border: 2px solid black;">- Chest X-ray</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="xray" value="normal" hidden /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="xray" value="abnormal" hidden /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="xray_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- Urine Analysis</td>
-                                <td class="radio-cell"><input type="radio" name="urine" value="normal" hidden /></td>
-                                <td class="radio-cell"><input type="radio" name="urine" value="abnormal" hidden /></td>
-                                <td><input type="text" name="urine_note" class="form-control no-border-input" /></td>
+                                <td style="border: 2px solid black;">- Urine Analysis</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="urine" value="normal" hidden /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="urine" value="abnormal" hidden /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="urine_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- C.B.C</td>
-                                <td class="radio-cell"><input type="radio" name="cbc" value="normal" hidden /></td>
-                                <td class="radio-cell"><input type="radio" name="cbc" value="abnormal" hidden /></td>
-                                <td><input type="text" name="cbc_note" class="form-control no-border-input" /></td>
+                                <td style="border: 2px solid black;">- C.B.C</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="cbc" value="normal" hidden /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="cbc" value="abnormal" hidden /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="cbc_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- L.F.T</td>
-                                <td class="radio-cell"><input type="radio" name="lft" value="normal" hidden /></td>
-                                <td class="radio-cell"><input type="radio" name="lft" value="abnormal" hidden /></td>
-                                <td><input type="text" name="lft_note" class="form-control no-border-input" /></td>
+                                <td style="border: 2px solid black;">- L.F.T</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="lft" value="normal" hidden /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="lft" value="abnormal" hidden /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="lft_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- U&C</td>
-                                <td class="radio-cell"><input type="radio" name="uc" value="normal" hidden /></td>
-                                <td class="radio-cell"><input type="radio" name="uc" value="abnormal" hidden /></td>
-                                <td><input type="text" name="uc_note" class="form-control no-border-input" /></td>
+                                <td style="border: 2px solid black;">- U&C</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="uc" value="normal" hidden /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="uc" value="abnormal" hidden /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="uc_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- F.B.S</td>
-                                <td class="radio-cell"><input type="radio" name="fbs" value="normal" hidden /></td>
-                                <td class="radio-cell"><input type="radio" name="fbs" value="abnormal" hidden /></td>
-                                <td><input type="text" name="fbs_note" class="form-control no-border-input" /></td>
+                                <td style="border: 2px solid black;">- F.B.S</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="fbs" value="normal" hidden /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="fbs" value="abnormal" hidden /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="fbs_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- Narcotics</td>
-                                <td class="radio-cell"><input type="radio" name="narcotics" value="normal" hidden /></td>
-                                <td class="radio-cell"><input type="radio" name="narcotics" value="abnormal" hidden /></td>
-                                <td><input type="text" name="narcotics_note" class="form-control no-border-input" /></td>
+                                <td style="border: 2px solid black;">- Narcotics</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="narcotics" value="normal" hidden /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="narcotics" value="abnormal" hidden /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="narcotics_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- Major Surgical Operations "detine"</td>
-                                <td class="radio-cell"><input type="radio" name="mso" value="normal" hidden /></td>
-                                <td class="radio-cell"><input type="radio" name="mso" value="abnormal" hidden /></td>
-                                <td><input type="text" name="mso_note" class="form-control no-border-input" /></td>
+                                <td style="border: 2px solid black;">- Major Surgical Operations "detine"</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="mso" value="normal" hidden /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="mso" value="abnormal" hidden /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="mso_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td>- Others "detine"</td>
-                                <td class="radio-cell"><input type="radio" name="others" value="normal" hidden /></td>
-                                <td class="radio-cell"><input type="radio" name="others" value="abnormal" hidden /></td>
-                                <td><input type="text" name="others_note" class="form-control no-border-input" /></td>
+                                <td style="border: 2px solid black;">- Others "detine"</td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="others" value="normal" hidden /></td>
+                                <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="others" value="abnormal" hidden /></td>
+                                <td style="border: 2px solid black;"><input type="text" name="others_note" class="form-control no-border-input" /></td>
                             </tr>
                         </tbody>
                     </table>
@@ -366,6 +366,7 @@
                         setRadioColor('cns', data.cns);
                         setRadioColor('git', data.git);
                         setRadioColor('psyc', data.psyc);
+                        setRadioColor('dis', data.dis);
                         setRadioColor('hep_b', data.hep_b);
                         setRadioColor('hep_c', data.hep_c);
                         setRadioColor('hiv', data.hiv);
@@ -394,6 +395,7 @@
                     form.elements["cns_note"].value = data.cns_note;
                     form.elements["git_note"].value = data.git_note;
                     form.elements["psyc_note"].value = data.psyc_note;
+                    form.elements["dis_note"].value = data.dis_note;
                     form.elements["hep_b_note"].value = data.hep_b_note;
                     form.elements["hep_c_note"].value = data.hep_c_note;
                     form.elements["hiv_note"].value = data.hiv_note;
@@ -406,6 +408,8 @@
                     form.elements["narcotics_note"].value = data.narcotics_note;
                     form.elements["mso_note"].value = data.mso_note;
                     form.elements["others_note"].value = data.others_note;
+
+                    //form.elements["drName"].value = data.Name;
 
                         // Open the modal
                         var examinationModal = new bootstrap.Modal(document.getElementById('examinationModal'), {});
@@ -437,9 +441,7 @@
 </script>
 
 <style>
-    .table, .table th, .table td {
-        border: 2px solid black; /* Adjust the thickness as needed */
-    }
+ 
 
     .radio-cell {
         cursor: pointer;

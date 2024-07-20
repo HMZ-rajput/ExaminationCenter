@@ -55,8 +55,9 @@
                                         <!-- Profile Picture -->
                                         <div class="form-group">
                                             <label class="form-label" for="ImageData" data-en="Profile Picture" data-ar="الصورة الشخصية">Profile Picture</label>
-                                            <input type="file" name="UserImage" id="ImageData" class="form-control" onchange="fileCheck(this);" required />
+                                            <input type="file" name="UserImage" id="ImageData" class="form-control" accept=".jpg, .jpeg, .png" required />
                                         </div>
+
                                         <!-- Status as pending by default -->
                                         <input type="hidden" name="Status" value="Pending" />
                                         <!-- Date Applied -->
@@ -124,7 +125,7 @@
                     <table class="table">
                         <thead class="thead-dark" style="background-color: #1D8EA1; color: white;">
                             <tr>
-                                <th scope="col" data-en="Sr#" data-ar="رقم">Sr#</th>
+                                <th scope="col" data-en="Order#" data-ar="رقم">Order#</th>
                                 <th scope="col" data-en="Name" data-ar="اسم">Name</th>
                                 <th scope="col" data-en="Date Applied" data-ar="تاريخ التقديم">Date Applied</th>
                                 <th scope="col" data-en="Position" data-ar="منصب">Position</th>

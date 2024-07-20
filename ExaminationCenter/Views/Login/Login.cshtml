@@ -8,63 +8,112 @@
 <section class="vh-100">
     <div class="container py-5 h-100">
         <div class="row d-flex align-items-center justify-content-center h-100">
-            <div class="col-md-8 col-lg-7 col-xl-6">
-                <img src="~/img/bg.jpeg"
-                     class="img-fluid" alt="Phone image">
-            </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                <div class="d-flex justify-content-end mb-3">
-                    <label class="me-2" for="languageToggle" style="color:#0d6efd">English</label>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="languageToggle" onclick="toggleLanguage()">
-                    </div>
-                    <label class="ms-2" for="languageToggle" style="color:#0d6efd">العربية</label>
-                </div>
-                <form method="post" action="@Url.Action("loginUser","Login")">
-                    <!--logo-->
-                    <div class="d-flex align-items-center mb-3 pb-1">
-                        <img src="~/img/logo.jpeg" style="width: 25%" />
-                    </div>
-
-                    <h5 class="fw-bold fw-normal mb-3 pb-3" style="letter-spacing: 1px;" data-en="Sign into your account" data-ar="تسجيل الدخول إلى حسابك">Sign into your account</h5>
-
-                    <!-- username input -->
-                    <div data-mdb-input-init class="form-outline mb-4">
-                        <label class="form-label" for="form1Example13" data-en="User Name" data-ar="اسم المستخدم">User Name</label>
-                        <input type="text" name="username" class="form-control form-control-lg" required />
-                    </div>
-
-                    <!-- Password input -->
-                    <div data-mdb-input-init class="form-outline mb-4">
-                        <label class="form-label" for="form1Example23" data-en="Password" data-ar="كلمة المرور">Password</label>
-                        <input type="password" name="password" class="form-control form-control-lg" required />
-                    </div>
-                    <div id="passwordError" class="text-danger mb-3">@ViewBag.message</div>
-                    @{
-                        ViewBag.message = null;
-                    }
-                    <div class="d-flex justify-content-between mb-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
-                            <label class="form-check-label" for="form1Example3" data-en="Remember me" data-ar="تذكرني"> Remember me </label>
+                <div class="form-container p-4">
+                    <div class="d-flex justify-content-end mb-3">
+                        <label class="me-2" for="languageToggle" style="color: white;">English</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="languageToggle" onclick="toggleLanguage()">
                         </div>
-                        <a href="#!" class="ml-auto" data-en="Forgot password?" data-ar="هل نسيت كلمة المرور؟">Forgot password?</a>
+                        <label class="ms-2" for="languageToggle" style="color: white;">العربية</label>
                     </div>
+                    <form method="post" action="@Url.Action("loginUser","Login")">
+                        <!--logo-->
+                        <div class="d-flex align-items-center mb-3 pb-1">
+                            <img src="~/img/logo.jpeg" style="width: 25%" />
+                        </div>
 
-                    <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary btn-lg btn-block fw-bold" data-en="Sign In" data-ar="تسجيل الدخول">Sign In</button>
+                        <h5 class="fw-bold fw-normal mb-3 pb-3" style="letter-spacing: 1px;" data-en="Sign into your account" data-ar="تسجيل الدخول إلى حسابك">Sign into your account</h5>
 
-                </form>
-                <!-- Sign up link -->
-                <p class="text-center mt-3">
-                    <span data-en="If you don't have an account, then" data-ar="إذا لم يكن لديك حساب،">If you don't have an account, then</span>
-                    <a href="@Url.Action("Register", "Login")" data-en="sign up here" data-ar="سجل هنا">sign up here</a>
-                </p>
+                        <!-- username input -->
+                        <div data-mdb-input-init class="form-outline mb-4">
+                            <label class="form-label" for="form1Example13" data-en="User Name" data-ar="اسم المستخدم">User Name</label>
+                            <input type="text" name="username" class="form-control form-control-lg" required />
+                        </div>
 
+                        <!-- Password input -->
+                        <div data-mdb-input-init class="form-outline mb-4">
+                            <label class="form-label" for="form1Example23" data-en="Password" data-ar="كلمة المرور">Password</label>
+                            <input type="password" name="password" class="form-control form-control-lg" required />
+                        </div>
+                        <div id="passwordError" class="text-danger mb-3">@ViewBag.message</div>
+                        @{
+                            ViewBag.message = null;
+                        }
+                        <div class="d-flex justify-content-between mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
+                                <label class="form-check-label" for="form1Example3" data-en="Remember me" data-ar="تذكرني"> Remember me </label>
+                            </div>
+                            <a href="#!" class="ml-auto" data-en="Forgot password?" data-ar="هل نسيت كلمة المرور؟">Forgot password?</a>
+                        </div>
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-lg btn-block fw-bold" data-en="Sign In" data-ar="تسجيل الدخول">Sign In</button>
+
+                    </form>
+                    <!-- Sign up link -->
+                    <p class="text-center mt-3">
+                        <span data-en="If you don't have an account, then" data-ar="إذا لم يكن لديك حساب،">If you don't have an account, then</span>
+                        <a href="@Url.Action("Register", "Login")" data-en="sign up here" data-ar="سجل هنا">sign up here</a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 </section>
+
+<style>
+    body {
+        background-image: url('@Url.Content("~/img/bg.jpeg")');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 100vh;
+        color: white; /* Set all text to white */
+    }
+
+    .form-container {
+        background-color: rgba(0, 0, 0, 0.7); /* Dark background with opacity */
+        border-radius: 10px;
+        padding: 20px;
+        color: white; /* Ensure text within the form container is white */
+    }
+
+    /* Set input field colors */
+    .form-control, .form-control:focus {
+        background-color: rgba(255, 255, 255, 0.2); /* Slightly transparent white background */
+        border: 1px solid white; /* White border */
+        color: white; /* Text color inside input fields */
+    }
+
+        .form-control::placeholder {
+            color: white; /* Placeholder text color */
+        }
+
+    /* Additional styles for better visibility */
+    .form-label {
+        color: white;
+    }
+
+    .btn-primary {
+        background-color: white;
+        color: black;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #ccc;
+        }
+
+    .text-danger {
+        color: red;
+    }
+
+    a {
+        color: white;
+    }
+</style>
 
 <script>
     function toggleLanguage() {
