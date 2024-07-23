@@ -36,6 +36,14 @@
                         </li>
                         
                     }
+                    @if (Accessor.HttpContext.Session.GetString("role") == "Candidate" || Accessor.HttpContext.Session.GetString("role") == "Examination Center")
+                    {
+                        <li class="nav-item">
+                            <a href="@Url.Action("RequestDetails","Home")" class="nav-link align-middle px-0 @(currentAction == "RequestDetails" ? "active" : "")" style="width: 200px">
+                                <i class="fs-4 bi-table" style="margin-left:5px"></i> <span class="ms-1 d-none d-sm-inline" data-en="Details" data-ar="مرشح">Details</span>
+                            </a>
+                        </li>
+                    }
                     @if (Accessor.HttpContext.Session.GetString("role") == "Doctor")
                     {
                         <li>

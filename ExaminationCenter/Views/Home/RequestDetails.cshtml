@@ -1,0 +1,114 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor Accessor
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_LayoutSidebar.cshtml";
+}
+@using ExaminationCenter.Models
+@using Microsoft.AspNetCore.Mvc
+@model List<Request>
+
+@if (!string.IsNullOrEmpty(Accessor.HttpContext.Session.GetString("id")))
+{
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="display-4" data-en="Details Page" data-ar="صفحة المرشح">Details Page</h1>
+                <div class="text-center">
+                    <table class="table">
+                        <thead class="thead-dark" style="background-color: #1D8EA1; color: white;">
+                            <tr>
+                                <th scope="col" data-en="Order#" data-ar="رقم">Order#</th>
+                                <th scope="col" data-en="Name" data-ar="اسم">Profile Picture</th>
+                                <th scope="col" data-en="Name" data-ar="اسم">Name</th>
+                                <th scope="col" data-en="Identity" data-ar="اسم">Identity</th>
+                                <th scope="col" data-en="Date Applied" data-ar="تاريخ التقديم">Date Applied</th>
+                                <th scope="col" data-en="Position" data-ar="منصب">Position</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int sno = 1;
+                            }
+                            @foreach (var req in Model)
+                            {
+                                <tr>
+                                    <th scope="row">@sno</th>
+                                    <td><img style="width:60px; height:60px" src="~/images/@req.UserImage" /></td>
+                                    <td>@req.Name</td>
+                                    <td>@req.Identity</td>
+                                    <td>@req.DateApplied</td>
+                                    <td>@req.Position</td>
+                                </tr>
+                                sno++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- User Icon -->
+<div class="position-fixed top-0 end-0 m-3">
+    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#userModal">
+        <i class="bi bi-person-fill"></i>
+    </button>
+</div>
+
+<!-- User Info Modal -->
+<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userModalLabel" data-en="User Information" data-ar="معلومات المستخدم">User Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p data-en="Name:" data-ar="اسم:">Name:</p>
+                <p>@Accessor.HttpContext.Session.GetString("name")</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-en="Close" data-ar="إغلاق">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleLanguage() {
+        var toggle = document.getElementById("languageToggle");
+        var labels = document.querySelectorAll("[data-en]");
+        if (toggle.checked) {
+            labels.forEach(function (label) {
+                label.textContent = label.getAttribute("data-ar");
+            });
+            localStorage.setItem('language', 'ar');
+        } else {
+            labels.forEach(function (label) {
+                label.textContent = label.getAttribute("data-en");
+            });
+            localStorage.setItem('language', 'en');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var toggle = document.getElementById("languageToggle");
+
+        // Retrieve the language setting from localStorage
+        var language = localStorage.getItem('language');
+        if (language === 'ar') {
+            toggle.checked = true;
+        } else {
+            toggle.checked = false;
+        }
+
+        toggleLanguage(); // Initial call to set the correct language on page load
+
+        toggle.addEventListener('change', toggleLanguage);
+    });
+
+
+
+</script>

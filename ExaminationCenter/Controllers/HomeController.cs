@@ -90,6 +90,17 @@ namespace ExaminationCenter.Controllers
             return RedirectToAction("Error", "Error");
         }
 
+        [HttpGet("Home/RequestDetails")]
+        public IActionResult RequestDetails()
+        {
+            if (HttpContext.Session.GetString("role") == "Examination Center" || HttpContext.Session.GetString("role") == "Candidate")
+            {
+                var requests = _context.requests.ToList();
+                return View(requests);
+            }
+            return RedirectToAction("Error", "Error");
+        }
+
 
         //add request from candidate page
         [HttpPost("Home/AddRequest")]
@@ -128,6 +139,7 @@ namespace ExaminationCenter.Controllers
                     {
                         if (UserImage != null)
                         {
+                            //remove image from root folder too
                             string filename = Path.GetFileName(UserImage.FileName);
                             string uniqueFileName = Guid.NewGuid().ToString() + "_" + filename;
                             string filepath = Path.Combine(_env.WebRootPath, "images/" + uniqueFileName);
@@ -198,6 +210,7 @@ namespace ExaminationCenter.Controllers
                 var request = _context.requests.Find(id);
                 if (request != null)
                 {
+                    //remove image from root folder too
                     _context.requests.Remove(request);
                     _context.SaveChanges();
                     return Ok(); // Return 200 OK status

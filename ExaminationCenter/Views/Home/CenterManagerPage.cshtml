@@ -84,9 +84,7 @@
             </div>
             <div class="modal-body">
                 <p data-en="Name:" data-ar="اسم:">Name:</p>
-                <p>@Accessor.HttpContext.Session.GetString("name")</p></<br />
-                <p data-en="Role:" data-ar="اسم:">Role:</p>
-                <p>@Accessor.HttpContext.Session.GetString("role")</p>
+                <p>@Accessor.HttpContext.Session.GetString("name")</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-en="Close" data-ar="إغلاق">Close</button>
@@ -95,7 +93,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal to view examination report-->
 <div class="modal fade" id="examinationModal" tabindex="-1" aria-labelledby="examinationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -106,7 +104,6 @@
             <div class="modal-body">
                 <form id="examinationForm">
                     <!-- Form content as provided -->
-                    @* <input type="hidden" value="@Accessor.HttpContext.Session.GetString("name")" name="Name" /> *@
                     <div class="d-flex justify-content-between mb-3">
                         <div class="form-group">
                             <label for="bloodType" class="mr-2">Blood type:</label>
@@ -122,7 +119,7 @@
                             </select>
                         </div>
 
-                        @* <span class="mx-3" style="font-size: 40px; font-weight: bold;" name="drName">@Accessor.HttpContext.Session.GetString("name")</span> *@
+                        <span class="mx-3" style="font-size: 40px; font-weight: bold;" name="drName" id="drName">@Accessor.HttpContext.Session.GetString("name")</span>
 
                     </div>
 
@@ -132,7 +129,7 @@
                     <table class="table table-bordered" style="margin-top: 20px; border: 2px solid black;">
                         <thead>
                             <tr>
-                                <th colspan="2" style="border: 2px solid black;">Examination</th>
+                                <th colspan="2" style="border: 2px solid black;" class="exam-header">Examination</th>
                                 <th style="border: 2px solid black;">Normal</th>
                                 <th style="border: 2px solid black;">Abnormal</th>
                                 <th style="border: 2px solid black;">Note</th>
@@ -141,7 +138,7 @@
                         <tbody>
                             <!-- Vision Examination -->
                             <tr>
-                                <td rowspan="3" class="vertical-text style=" border: 2px solid black;" narrow-column"><span>Vision Examination</span></td>
+                                <td rowspan="3" class="vertical-text" style="border: 2px solid black;" narrow-column"><span>Vision Examination</span></td>
                                 <td style="border: 2px solid black;">- Rt. eye</td>
                                 <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="rt_eye" value="normal" disabled /></td>
                                 <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="rt_eye" value="abnormal" disabled /></td>
@@ -296,18 +293,21 @@
                                 <td style="border: 2px solid black;"><input type="text" name="mso_note" class="form-control no-border-input" /></td>
                             </tr>
                             <tr>
-                                <td style="border: 2px solid black;">- Others "detine"</td>
+                                <td style="border: 2px solid black;">- Others "define"</td>
                                 <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="others" value="normal" hidden /></td>
                                 <td style="border: 2px solid black;" class="radio-cell"><input type="radio" name="others" value="abnormal" hidden /></td>
                                 <td style="border: 2px solid black;"><input type="text" name="others_note" class="form-control no-border-input" /></td>
                             </tr>
                         </tbody>
                     </table>
+                    <label hidden>Printed By: @Accessor.HttpContext.Session.GetString("name")</label>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="downloadPdf" onclick="downloadPdfBtn()">Download Report</button>
             </div>
+
         </div>
     </div>
 </div>
@@ -379,37 +379,37 @@
                         setRadioColor('narcotics', data.narcotics);
                         setRadioColor('mso', data.mso);
                         setRadioColor('dis', data.dis);
-                    setRadioColor('others', data.others);
+                        setRadioColor('others', data.others);
 
 
                         // Set notes
-                    form.elements["rt_eye_note"].value = data.rt_eye_note;
-                    form.elements["lt_eye_note"].value = data.lt_eye_note;
-                    form.elements["color_disc_note"].value = data.color_disc_note;
-                    form.elements["lt_ear_note"].value = data.lt_ear_note;
-                    form.elements["rt_ear_note"].value = data.rt_ear_note;
-                    form.elements["vocal_note"].value = data.vocal_note;
-                    form.elements["bp_note"].value = data.bp_note;
-                    form.elements["cvs_note"].value = data.cvs_note;
-                    form.elements["resp_note"].value = data.resp_note;
-                    form.elements["cns_note"].value = data.cns_note;
-                    form.elements["git_note"].value = data.git_note;
-                    form.elements["psyc_note"].value = data.psyc_note;
-                    form.elements["dis_note"].value = data.dis_note;
-                    form.elements["hep_b_note"].value = data.hep_b_note;
-                    form.elements["hep_c_note"].value = data.hep_c_note;
-                    form.elements["hiv_note"].value = data.hiv_note;
-                    form.elements["xray_note"].value = data.xray_note;
-                    form.elements["urine_note"].value = data.urine_note;
-                    form.elements["cbc_note"].value = data.cbc_note;
-                    form.elements["lft_note"].value = data.lft_note;
-                    form.elements["uc_note"].value = data.uc_note;
-                    form.elements["fbs_note"].value = data.fbs_note;
-                    form.elements["narcotics_note"].value = data.narcotics_note;
-                    form.elements["mso_note"].value = data.mso_note;
-                    form.elements["others_note"].value = data.others_note;
+                        form.elements["rt_eye_note"].value = data.rt_eye_note;
+                        form.elements["lt_eye_note"].value = data.lt_eye_note;
+                        form.elements["color_disc_note"].value = data.color_disc_note;
+                        form.elements["lt_ear_note"].value = data.lt_ear_note;
+                        form.elements["rt_ear_note"].value = data.rt_ear_note;
+                        form.elements["vocal_note"].value = data.vocal_note;
+                        form.elements["bp_note"].value = data.bp_note;
+                        form.elements["cvs_note"].value = data.cvs_note;
+                        form.elements["resp_note"].value = data.resp_note;
+                        form.elements["cns_note"].value = data.cns_note;
+                        form.elements["git_note"].value = data.git_note;
+                        form.elements["psyc_note"].value = data.psyc_note;
+                        form.elements["dis_note"].value = data.dis_note;
+                        form.elements["hep_b_note"].value = data.hep_b_note;
+                        form.elements["hep_c_note"].value = data.hep_c_note;
+                        form.elements["hiv_note"].value = data.hiv_note;
+                        form.elements["xray_note"].value = data.xray_note;
+                        form.elements["urine_note"].value = data.urine_note;
+                        form.elements["cbc_note"].value = data.cbc_note;
+                        form.elements["lft_note"].value = data.lft_note;
+                        form.elements["uc_note"].value = data.uc_note;
+                        form.elements["fbs_note"].value = data.fbs_note;
+                        form.elements["narcotics_note"].value = data.narcotics_note;
+                        form.elements["mso_note"].value = data.mso_note;
+                        form.elements["others_note"].value = data.others_note;
 
-                    //form.elements["drName"].value = data.Name;
+                        document.getElementById("drName").textContent = data.name;
 
                         // Open the modal
                         var examinationModal = new bootstrap.Modal(document.getElementById('examinationModal'), {});
@@ -419,10 +419,8 @@
             }
 
             window.fetchExaminationDetails = fetchExaminationDetails;
+
         });
-
-
-
 
     document.querySelectorAll('.radio-cell').forEach(cell => {
         cell.addEventListener('click', function () {
@@ -438,7 +436,100 @@
         });
     });
 
+    function downloadPdfBtn() {
+        const element = document.getElementById('examinationForm');
+        const verticalTextElements = document.querySelectorAll('.vertical-text');
+        const examHeaderElement = document.querySelector('.exam-header');
+        const tableRows = document.querySelectorAll('#examinationForm table tr');
+        const tableData = document.querySelectorAll('#examinationForm table td');
+        const textElements = document.querySelectorAll('#examinationForm');
+        const hiddenLabel = document.querySelector('label[hidden]');
+        const inputCells = document.querySelectorAll('td input');
+
+        // Hide all elements with the class 'vertical-text'
+        verticalTextElements.forEach(el => {
+            el.style.display = 'none';
+        });
+
+        // Change colspan of the exam header
+        const originalColspan = examHeaderElement.getAttribute('colspan');
+        examHeaderElement.setAttribute('colspan', '1');
+
+        // Reduce the height of all rows and decrease text size
+        tableRows.forEach(row => {
+            row.style.height = '33px'; // Adjust the height as needed
+        });
+        textElements.forEach(el => {
+            el.style.fontSize = '15px'; // Adjust the font size as needed
+            el.style.padding = '0px';
+        });
+        tableData.forEach(td => {
+            td.style.padding = '0px'; // Adjust the font size as needed
+        });
+        // Adjust styles of input cells
+        inputCells.forEach(input => {
+            input.style.margin = '0';
+            input.style.padding = '0';
+            input.style.height = '33px'; // Match row height
+            input.parentNode.style.padding = '0';
+            input.parentNode.style.margin = '0';
+        });
+
+        // Unhide the label
+        hiddenLabel.removeAttribute('hidden');
+
+        const options = {
+            filename: 'examination_report.pdf',
+            margin: 0.2,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 3 },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+
+        // Generate the PDF
+        html2pdf().set(options).from(element).save().then(() => {
+            // Restore the visibility of the elements
+            verticalTextElements.forEach(el => {
+                el.style.display = '';
+            });
+
+            // Restore the original colspan of the exam header
+            examHeaderElement.setAttribute('colspan', originalColspan);
+
+            // Restore the original row height and text size
+            tableRows.forEach(row => {
+                row.style.height = ''; // Clear the height style
+            });
+
+            textElements.forEach(el => {
+                el.style.fontSize = ''; // Clear the font size style
+                el.style.padding = '';
+            });
+
+            tableData.forEach(td => {
+                td.style.padding = ''; // Adjust the font size as needed
+            });
+
+            // Restore styles of input cells
+            inputCells.forEach(input => {
+                input.style.margin = '';
+                input.style.padding = '';
+                input.style.height = ''; // Clear the height style
+                input.parentNode.style.padding = '';
+                input.parentNode.style.margin = '';
+            });
+
+            // Hide the label again
+            hiddenLabel.setAttribute('hidden', true);
+        });
+    }
+
+
+
+
+
 </script>
+
 
 <style>
  
@@ -469,6 +560,7 @@
         writing-mode: vertical-rl;
         transform: rotate(180deg);
         text-align: center;
+        width: auto;
     }
 
     .no-border-input {
@@ -491,5 +583,7 @@
         max-width: 80%; /* Adjust the percentage as needed */
         width: auto; /* Allow width to be auto */
     }
+
+
 </style>
 

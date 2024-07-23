@@ -44,10 +44,10 @@ namespace ExaminationCenter.Controllers
         }
 
 
-        [HttpPost]
-        public IActionResult loginUser(string username, string password) 
+        [HttpPost("Login/loginUser")]
+        public IActionResult loginUser(string username, string password, string role) 
         {
-            var row = _context.users.FirstOrDefault(u => u.Name == username && u.Password == password);
+            var row = _context.users.FirstOrDefault(u => u.Name == username && u.Password == password && u.Role==role);
 
             if(row != null)
             {
@@ -76,9 +76,32 @@ namespace ExaminationCenter.Controllers
             }
             else
             {
-                ViewBag.message = "Wrong username or password!";
+                ViewBag.message = "Wrong username, role or password!";
                 return View("Login");
             }
+        }
+
+        [HttpGet("Login/ChangePasswordView")]
+        public IActionResult ChangePasswordView()
+        {
+            ViewBag.message = ViewBag.message;
+            return View();
+
+        }
+
+        [HttpPost("Login/ChangePassword")]
+        public IActionResult ChangePassword(string username, string password)
+        {
+            var user = _context.users.Where(u => u.Name == username).FirstOrDefault();
+
+            if (user != null)
+            {
+                user.Password = password;
+                _context.SaveChanges();
+                return View("Login");
+            }
+            ViewBag.message = "Invalid Username";
+            return View("ChangePasswordView");
         }
 
         public IActionResult Logout()
